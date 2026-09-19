@@ -28,7 +28,7 @@ from dotfiles.operations import (
 )
 from dotfiles.private_data import PrivateData
 
-VERSION = "0.1.0"
+VERSION = "0.2.0"
 
 
 def build_parser() -> argparse.ArgumentParser:
