@@ -1,0 +1,1 @@
+"""Dotfiles collector and deployer."""

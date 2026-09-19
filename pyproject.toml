@@ -1,0 +1,43 @@
+[project]
+name = "dtf-dotfiles"
+version = "0.1.0"
+description = "Collect and deploy Linux dotfiles from a separate configuration repository"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { file = "LICENSE" }
+authors = [{ name = "dev0xffh" }]
+keywords = ["dotfiles", "configuration", "cli", "linux"]
+dependencies = [
+  "json5>=0.12.0",
+  "tomlkit>=0.13.3",
+]
+
+[project.scripts]
+dtf = "dotfiles.cli:main"
+
+[project.urls]
+Repository = "https://github.com/dev0xffh/dtf"
+Issues = "https://github.com/dev0xffh/dtf/issues"
+
+[dependency-groups]
+dev = [
+  "pytest>=8.4.0",
+  "ruff>=0.13.0",
+]
+
+[build-system]
+requires = ["uv_build>=0.8.0,<0.11.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "dotfiles"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]

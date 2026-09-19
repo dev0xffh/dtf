@@ -1,0 +1,11 @@
+.env
+.env.*
+configs/**/.env
+configs/**/.env.*
+configs/**/*.key
+configs/**/*.pem
+configs/**/id_rsa
+configs/**/id_dsa
+configs/**/id_ecdsa
+configs/**/id_ed25519
+.dtf-private.json

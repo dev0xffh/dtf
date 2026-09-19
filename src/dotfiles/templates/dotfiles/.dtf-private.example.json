@@ -1,0 +1,12 @@
+{
+  "host": "single",
+  "mappings": [
+    {
+      "alias": "git",
+      "map": {
+        "author": "Your Name",
+        "email": "you@example.com"
+      }
+    }
+  ]
+}
