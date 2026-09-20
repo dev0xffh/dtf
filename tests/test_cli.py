@@ -57,7 +57,7 @@ def test_del_yes_removes_manifest_entry_and_repository_copy(tmp_path: Path) -> N
         },
     )
     manifest.save(path)
-    repository = tmp_path / "configs/single/home/.config/zed"
+    repository = tmp_path / "configs/main/home/.config/zed"
     repository.mkdir(parents=True)
     (repository / "settings.json").write_text("{}\n")
 
@@ -66,7 +66,7 @@ def test_del_yes_removes_manifest_entry_and_repository_copy(tmp_path: Path) -> N
     assert json.loads(path.read_text())["apps"] == {}
 
 
-def test_get_host_converts_single_to_named_host_and_set_uses_private_host(
+def test_get_host_converts_main_to_named_host_and_set_uses_private_host(
     tmp_path: Path, monkeypatch
 ) -> None:
     path = tmp_path / "dotfiles.json"
@@ -84,7 +84,7 @@ def test_get_host_converts_single_to_named_host_and_set_uses_private_host(
         },
     )
     manifest.save(path)
-    old_repository = tmp_path / "configs/single/home/.config/example/settings.ini"
+    old_repository = tmp_path / "configs/main/home/.config/example/settings.ini"
     old_repository.parent.mkdir(parents=True)
     old_repository.write_text("value = shared\n")
     (tmp_path / ".dtf-private.json").write_text(

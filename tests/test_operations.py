@@ -26,7 +26,7 @@ def test_get_and_set_mirror_directories(tmp_path: Path) -> None:
     selected = list(_manifest().apps.items())
 
     result = transfer(selected, manifest_path, direction="get", merge=False, home=home)
-    repository = tmp_path / "repo/configs/single/home/.config/example"
+    repository = tmp_path / "repo/configs/main/home/.config/example"
     assert not result.errors
     assert (repository / "current.ini").read_text() == "value = machine\n"
 
@@ -84,7 +84,7 @@ def test_batch_continues_after_missing_path(tmp_path: Path) -> None:
 
     assert result.completed == 1
     assert len(result.errors) == 1
-    assert (tmp_path / "repo/configs/single/home/.config/present.ini").exists()
+    assert (tmp_path / "repo/configs/main/home/.config/present.ini").exists()
 
 
 def test_secret_guard_finds_private_key(tmp_path: Path) -> None:
@@ -107,7 +107,7 @@ def test_remove_repository_configs_never_touches_machine(tmp_path: Path) -> None
     machine.mkdir(parents=True)
     (machine / "settings.ini").write_text("keep = yes\n")
     manifest_path = tmp_path / "repo/dotfiles.json"
-    repository = tmp_path / "repo/configs/single/home/.config/example"
+    repository = tmp_path / "repo/configs/main/home/.config/example"
     repository.mkdir(parents=True)
     (repository / "settings.ini").write_text("delete = yes\n")
 
@@ -147,7 +147,7 @@ def test_private_mapping_round_trips_get_and_set(tmp_path: Path) -> None:
         home=home,
         private_data=private_data,
     )
-    repository = tmp_path / "repo/configs/single/home/.gitconfig"
+    repository = tmp_path / "repo/configs/main/home/.gitconfig"
     assert not result.errors
     assert "{{author}}" in repository.read_text()
     assert "{{email}}" in repository.read_text()
@@ -192,6 +192,6 @@ def test_private_mapping_transforms_directory_files(tmp_path: Path) -> None:
     )
 
     assert not result.errors
-    assert (tmp_path / "repo/configs/single/home/.config/git/user.conf").read_text() == (
+    assert (tmp_path / "repo/configs/main/home/.config/git/user.conf").read_text() == (
         "author = {{author}}\n"
     )

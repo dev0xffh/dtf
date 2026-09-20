@@ -12,7 +12,7 @@ MANIFEST_VERSION = 1
 SUPPORTED_TYPES = frozenset({"INI", "TOML", "JSON", "JSONC", "JSON5", "SHELL"})
 PROJECT_PATTERN = re.compile(r"^[A-Za-z0-9_.-]+(?:/[A-Za-z0-9_.-]+)?$")
 HOST_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
-DEFAULT_HOST = "single"
+DEFAULT_HOST = "main"
 
 
 class ManifestError(ValueError):

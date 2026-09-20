@@ -8,8 +8,8 @@ The layout mirrors conventional Linux (RHEL) paths without embedding a user name
 
 | Machine | Configuration repository |
 | --- | --- |
-| `~/.config/zed/settings.json` | `{YOUR_REPO}/configs/single/home/.config/zed/settings.json` |
-| `/etc/example/config.toml` | `{YOUR_REPO}/configs/single/root/etc/example/config.toml` |
+| `~/.config/zed/settings.json` | `{YOUR_REPO}/configs/main/home/.config/zed/settings.json` |
+| `/etc/example/config.toml` | `{YOUR_REPO}/configs/main/root/etc/example/config.toml` |
 
 ## Installation
 
@@ -67,7 +67,7 @@ private-data files.
         "~/.config/zed/settings.json",
         "~/.config/zed/keymap.json"
       ],
-      "hosts": ["single"]
+      "hosts": ["main"]
     }
   }
 }
@@ -113,11 +113,11 @@ dtf set zed
 ## Hosts
 
 An alias is either shared by every machine or has separate copies per named host. New aliases use
-the shared `single` host, stored below `configs/single/{home,root}`. `single` cannot be combined
+the shared `main` host, stored below `configs/main/{home,root}`. `main` cannot be combined
 with named hosts for the same alias.
 
 To split a shared alias, collect it explicitly for the first host. The successful collection moves
-that alias from `single` to the named host in the manifest and removes its old shared repository
+that alias from `main` to the named host in the manifest and removes its old shared repository
 copy. Collect additional hosts explicitly:
 
 ```bash
@@ -189,7 +189,7 @@ The file identifies the current machine and contains one mapping object per mani
 
 ```json
 {
-  "host": "single",
+  "host": "main",
   "mappings": [
     {
       "alias": "git",
@@ -215,7 +215,7 @@ for different applications or machines. Missing mappings leave files unchanged. 
 plain text and should still be reviewed before sharing the configuration repository.
 
 The `host` field is written explicitly by `dtf init`; older private-data arrays remain compatible
-and are treated as `"single"`.
+and are treated as `"main"`.
 
 ## Safety
 

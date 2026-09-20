@@ -19,10 +19,10 @@ def test_private_data_loads_next_to_manifest(tmp_path: Path) -> None:
     assert data.host == "desktop"
 
 
-def test_private_data_legacy_array_defaults_to_single_host() -> None:
+def test_private_data_legacy_array_defaults_to_main_host() -> None:
     data = PrivateData.from_value([{"alias": "git", "map": {"author": "Jack"}}])
 
-    assert data.host == "single"
+    assert data.host == "main"
 
 
 def test_private_data_requires_object_map() -> None:

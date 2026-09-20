@@ -1,5 +1,5 @@
 {
-  "host": "single",
+  "host": "main",
   "mappings": [
     {
       "alias": "git",

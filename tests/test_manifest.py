@@ -58,13 +58,13 @@ def test_init_creates_dotfiles_repository_skeleton(tmp_path: Path) -> None:
 
     assert Manifest.load(repository / "dotfiles.json").project == "example/dotfiles"
     assert json.loads((repository / ".dtf-private.json").read_text()) == {
-        "host": "single",
+        "host": "main",
         "mappings": [],
     }
     assert (repository / ".dtf-private.example.json").exists()
     assert (repository / ".gitignore").exists()
-    assert (repository / "configs/single/home/.gitkeep").exists()
-    assert (repository / "configs/single/root/.gitkeep").exists()
+    assert (repository / "configs/main/home/.gitkeep").exists()
+    assert (repository / "configs/main/root/.gitkeep").exists()
     assert (repository / "AGENTS.md").read_bytes() == (repository / "CLAUDE.md").read_bytes()
 
 
@@ -172,8 +172,8 @@ def test_path_mapping(tmp_path: Path) -> None:
     home = tmp_path / "home"
 
     assert machine_path("~/.config/zed", home=home) == home / ".config/zed"
-    assert repo_path("~/.config/zed", manifest) == tmp_path / "configs/single/home/.config/zed"
-    assert repo_path("/etc/example", manifest) == tmp_path / "configs/single/root/etc/example"
+    assert repo_path("~/.config/zed", manifest) == tmp_path / "configs/main/home/.config/zed"
+    assert repo_path("/etc/example", manifest) == tmp_path / "configs/main/root/etc/example"
     assert repo_path("~/.config/zed", manifest, "desktop") == (
         tmp_path / "configs/desktop/home/.config/zed"
     )
@@ -201,7 +201,7 @@ def test_manifest_rejects_unsupported_type() -> None:
         )
 
 
-def test_manifest_defaults_legacy_apps_to_single_host() -> None:
+def test_manifest_defaults_legacy_apps_to_main_host() -> None:
     manifest = Manifest.from_dict(
         {
             "project": "dev0xffh/dotfiles",
@@ -216,10 +216,10 @@ def test_manifest_defaults_legacy_apps_to_single_host() -> None:
         }
     )
 
-    assert manifest.apps["example"].hosts == ("single",)
+    assert manifest.apps["example"].hosts == ("main",)
 
 
-def test_manifest_rejects_single_combined_with_named_host() -> None:
+def test_manifest_rejects_main_combined_with_named_host() -> None:
     with pytest.raises(ManifestError, match="cannot be combined"):
         Manifest.from_dict(
             {
@@ -230,7 +230,7 @@ def test_manifest_rejects_single_combined_with_named_host() -> None:
                         "app": "example",
                         "type": "INI",
                         "paths": ["~/.example"],
-                        "hosts": ["single", "desktop"],
+                        "hosts": ["main", "desktop"],
                     }
                 },
             }

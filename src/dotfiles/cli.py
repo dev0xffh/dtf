@@ -28,7 +28,7 @@ from dotfiles.operations import (
 )
 from dotfiles.private_data import PrivateData
 
-VERSION = "0.2.1"
+VERSION = "0.3.0"
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -148,7 +148,7 @@ def _init(path: Path | None, project: str | None, manifest_option: Path) -> int:
     project = project or _project_from_git(path) or f"local/{path.name}"
     Manifest.empty(project).save(path / "dotfiles.json")
     (path / ".dtf-private.json").write_text(
-        '{\n  "host": "single",\n  "mappings": []\n}\n', encoding="utf-8"
+        f'{{\n  "host": "{DEFAULT_HOST}",\n  "mappings": []\n}}\n', encoding="utf-8"
     )
     for namespace in ("home", "root"):
         directory = path / "configs" / DEFAULT_HOST / namespace
